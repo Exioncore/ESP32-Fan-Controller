@@ -5,11 +5,13 @@
 /**
  * Empty Constructor
  */
-SoftwareSensor::SoftwareSensor() {
+SoftwareSensor::SoftwareSensor()
+{
     this->temperature = 20;
 }
 
-void SoftwareSensor::set_temperature(double temperature) {
+void SoftwareSensor::set_temperature(double temperature)
+{
     this->temperature = temperature;
 }
 /////////////////////
@@ -17,11 +19,13 @@ void SoftwareSensor::set_temperature(double temperature) {
 /////////////////////
 void SoftwareSensor::update() {}
 
-double SoftwareSensor::get_temperature() {
+double SoftwareSensor::get_temperature()
+{
     return this->temperature;
 }
 
-InterfaceSensor::SensorType SoftwareSensor::get_type() {
+InterfaceSensor::SensorType SoftwareSensor::get_type()
+{
     return SensorType::SOFTWARE;
 }
 

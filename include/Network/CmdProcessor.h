@@ -9,22 +9,23 @@
  * This class is used to process commands
  */
 
-class CmdProcessor {
-    public:
-        static CmdProcessor* getInstance();
+class CmdProcessor
+{
+public:
+    static CmdProcessor *getInstance();
 
-        char* process(char* cmd);
+    char *process(char *cmd);
 
-    private:
-        // Store the instance
-        static CmdProcessor* instance;
-        // Constructor
-        CmdProcessor();
+private:
+    // Store the instance
+    static CmdProcessor *instance;
+    // Constructor
+    CmdProcessor();
 
-        StringProcessor stringProcessor;
+    StringProcessor stringProcessor;
 
-        void processFan(char* cmd, char* response, char* buff, StringProcessor stringProcessor);
-        void processSensor(char* cmd, char* response, char* buff, StringProcessor stringProcessor);
+    void processFan(char *cmd, char *response, char *buff, StringProcessor stringProcessor);
+    void processSensor(char *cmd, char *response, char *buff, StringProcessor stringProcessor);
 };
 
 #endif

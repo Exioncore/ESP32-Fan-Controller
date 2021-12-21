@@ -3,38 +3,38 @@
 
 #include <Arduino.h>
 
-class Header {
-    public:
-        // Empty Constructor
-        Header();
-        // Constructor
-        Header(
-            uint8_t pwm_pin,
-            uint8_t pwm_channel,
-            uint8_t rpm_pin,
-            uint8_t pcnt_channel
-        );
-        // Updates
-        void rpm_update();
-        // Setters
-        void set_duty(float duty);
-        // Getters
-        float get_duty();
-        uint16_t get_rpm();
-        
-    private:
-        void pcnt_init(int channel, int pin);
+class Header
+{
+public:
+    // Empty Constructor
+    Header();
+    // Constructor
+    Header(
+        uint8_t pwm_pin,
+        uint8_t pwm_channel,
+        uint8_t rpm_pin,
+        uint8_t pcnt_channel);
+    // Updates
+    void rpm_update();
+    // Setters
+    void set_duty(float duty);
+    // Getters
+    float get_duty();
+    uint16_t get_rpm();
 
-        // Static data
-        uint8_t pwm_channel;
-        uint8_t pcnt_channel;
+private:
+    void pcnt_init(int channel, int pin);
 
-        // Dynamic data
-        float duty;
-        uint16_t rpm;
+    // Static data
+    uint8_t pwm_channel;
+    uint8_t pcnt_channel;
 
-        // Internal variables
-        ulong last_pcnt_update;
+    // Dynamic data
+    float duty;
+    uint16_t rpm;
+
+    // Internal variables
+    ulong last_pcnt_update;
 };
 
 #endif

@@ -4,68 +4,84 @@
 //////////////////////
 //   Constructors   //
 //////////////////////
-PID::PID(){}
+PID::PID() {}
 
 //////////////////////
 //  Configuratiion  //
 //////////////////////
-void PID::set_P(float p) {
+void PID::set_P(float p)
+{
     this->p = p;
 }
-void PID::set_I(float i) {
+void PID::set_I(float i)
+{
     this->i = i;
     this->max_integral = (max - min) / i;
 }
-void PID::set_D(float d) {
+void PID::set_D(float d)
+{
     this->d = d;
 }
-void PID::set_min(uint8_t min) {
+void PID::set_min(uint8_t min)
+{
     this->min = min;
     this->max_integral = (max - min) / i;
 }
-void PID::set_max(uint8_t max) {
+void PID::set_max(uint8_t max)
+{
     this->max = max;
     this->max_integral = (max - min) / i;
 }
-void PID::set_target(int8_t target) {
+void PID::set_target(int8_t target)
+{
     this->target = target;
 }
 
-float PID::get_P() {
+float PID::get_P()
+{
     return this->p;
 }
-float PID::get_I() {
+float PID::get_I()
+{
     return this->i;
 }
-float PID::get_D() {
+float PID::get_D()
+{
     return this->d;
 }
-uint8_t PID::get_min() {
+uint8_t PID::get_min()
+{
     return this->min;
 }
-uint8_t PID::get_max() {
+uint8_t PID::get_max()
+{
     return this->max;
 }
-int8_t PID::get_target() {
+int8_t PID::get_target()
+{
     return this->target;
 }
 
 //////////////////////////////////
 // InterfaceAlgorithm Functions //
 //////////////////////////////////
-void PID::set_ambient_temperature(float temperature) {
+void PID::set_ambient_temperature(float temperature)
+{
     this->ambient_temperature = temperature;
 }
 
-void PID::set_ambient_reference(bool enable) {
+void PID::set_ambient_reference(bool enable)
+{
     this->use_ambient_temperature = enable;
 }
 
-bool PID::is_using_ambient_reference() {
+bool PID::is_using_ambient_reference()
+{
     return this->use_ambient_temperature;
 }
 
-float PID::get_duty_at(float temperature) {
+float PID::get_duty_at(float temperature)
+{
     // Delta time
     double dt = (millis() - lastUpdate) / 1000.0;
     // Error
@@ -97,10 +113,12 @@ float PID::get_duty_at(float temperature) {
 /////////////////////
 // InterfaceEEPROM //
 /////////////////////
-void PID::setEEPROMaddr(uint16_t addr) {
+void PID::setEEPROMaddr(uint16_t addr)
+{
     this->addr = addr;
 }
-void PID::writeToEEPROM() {
+void PID::writeToEEPROM()
+{
     EEPROM.writeFloat(this->addr + 0, p);
     EEPROM.writeFloat(this->addr + 4, i);
     EEPROM.writeFloat(this->addr + 8, d);
@@ -109,7 +127,8 @@ void PID::writeToEEPROM() {
     EEPROM.writeBool(this->addr + 14, use_ambient_temperature);
     EEPROM.writeChar(this->addr + 15, target);
 }
-void PID::readFromEEPROM() {
+void PID::readFromEEPROM()
+{
     this->p = EEPROM.readFloat(this->addr + 0);
     this->p = isnan(this->p) ? 0 : (this->p > 100 ? 100 : this->p);
     this->i = EEPROM.readFloat(this->addr + 4);
@@ -125,6 +144,7 @@ void PID::readFromEEPROM() {
     this->target = this->target < 0 ? 0 : (this->target > 100 ? 100 : this->target);
     this->max_integral = (max - min) / i;
 }
-uint16_t PID::sizeOnEEPROM() {
+uint16_t PID::sizeOnEEPROM()
+{
     return 4 * 3 + 4;
 }

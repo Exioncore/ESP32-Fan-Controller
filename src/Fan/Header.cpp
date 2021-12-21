@@ -1,23 +1,23 @@
 #include "Fan/Header.h"
 #include "driver/pcnt.h"
 
-#define MAX_NAME_LEN            15      // 15 characters max length
-#define PWM_FREQUENCY           25000   // 25 KHz
-#define PWM_RESOLUTION          12      // 12 bit resolution
-#define MAX_PWM_VALUE           ((uint16_t)pow(2, PWM_RESOLUTION) - 1)
+#define MAX_NAME_LEN 15     // 15 characters max length
+#define PWM_FREQUENCY 25000 // 25 KHz
+#define PWM_RESOLUTION 12   // 12 bit resolution
+#define MAX_PWM_VALUE ((uint16_t)pow(2, PWM_RESOLUTION) - 1)
 #define PWM_REVERSED
 
-#define MIN_PCNT_COUNT          50
-#define PCNT_TIMEOUT_MS         5000
+#define MIN_PCNT_COUNT 50
+#define PCNT_TIMEOUT_MS 5000
 
-Header::Header(){}
+Header::Header() {}
 
 Header::Header(
     uint8_t pwm_pin,
     uint8_t pwm_channel,
     uint8_t rpm_pin,
-    uint8_t pcnt_channel
-) {
+    uint8_t pcnt_channel)
+{
     this->pwm_channel = pwm_channel;
     this->pcnt_channel = pcnt_channel;
     // Pins setup
@@ -34,7 +34,8 @@ Header::Header(
 ////////////////////////
 //       Updates      //
 ////////////////////////
-void Header::rpm_update() {
+void Header::rpm_update()
+{
     ulong time = millis();
     // PCNT
     int16_t pcnt_val;
@@ -48,7 +49,8 @@ void Header::rpm_update() {
     else if (pcnt_timeout_trigger)
         this->rpm = 0;
     // Clear PCNT if RPM updated
-    if (pcnt_count_trigger || pcnt_timeout_trigger) {
+    if (pcnt_count_trigger || pcnt_timeout_trigger)
+    {
         pcnt_counter_clear((pcnt_unit_t)pcnt_channel);
         last_pcnt_update = time;
     }
@@ -56,7 +58,8 @@ void Header::rpm_update() {
 ////////////////////////
 //      Setters       //
 ////////////////////////
-void Header::set_duty(float duty) {
+void Header::set_duty(float duty)
+{
     this->duty = duty;
 #ifdef PWM_REVERSED
     ledcWrite(pwm_channel, MAX_PWM_VALUE - (uint16_t)roundf(MAX_PWM_VALUE / 100.0 * duty));
@@ -67,17 +70,20 @@ void Header::set_duty(float duty) {
 ////////////////////////
 //     Getters        //
 ////////////////////////
-float Header::get_duty() {
+float Header::get_duty()
+{
     return this->duty;
 }
 
-uint16_t Header::get_rpm() {
+uint16_t Header::get_rpm()
+{
     return this->rpm;
 }
 ////////////////////////
 // Internal functions //
 ////////////////////////
-void Header::pcnt_init(int channel, int pin) {
+void Header::pcnt_init(int channel, int pin)
+{
     pcnt_config_t pcnt_config;
     // Base setup
     pcnt_config.pulse_gpio_num = pin;

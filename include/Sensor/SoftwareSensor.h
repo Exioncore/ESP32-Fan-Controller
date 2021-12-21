@@ -7,26 +7,27 @@
 
 class SoftwareSensor : InterfaceSensor
 {
-    public:
-        // Empty Constructor
-        SoftwareSensor();
+public:
+    // Empty Constructor
+    SoftwareSensor();
 
-        // Set Temperature
-        void set_temperature(double temperature);
-        
-        //InterfaceSensor
-        void update();
-        double get_temperature();
-        InterfaceSensor::SensorType get_type();
+    // Set Temperature
+    void set_temperature(double temperature);
 
-        // InterfaceEEPROM
-        void setEEPROMaddr(uint16_t addr);
-        void writeToEEPROM();
-        void readFromEEPROM();
-        uint16_t sizeOnEEPROM();
-    private:
-        // The processed Sensor reading
-        double temperature;
+    //InterfaceSensor
+    void update();
+    double get_temperature();
+    InterfaceSensor::SensorType get_type();
+
+    // InterfaceEEPROM
+    void setEEPROMaddr(uint16_t addr);
+    void writeToEEPROM();
+    void readFromEEPROM();
+    uint16_t sizeOnEEPROM();
+
+private:
+    // The processed Sensor reading
+    double temperature;
 };
 
 #endif
